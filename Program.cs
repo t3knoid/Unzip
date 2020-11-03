@@ -58,17 +58,14 @@ namespace Unzip
 
                 try
                 {
-                    using (ZipArchive archive = ZipFile.OpenRead(filePath))
+                    using (ZipArchive archive = ZipFile.Open(filePath, ZipArchiveMode.Read))
                     {
-                        foreach (ZipArchiveEntry entry in archive.Entries)
-                        {
-                            entry.ExtractToFile(Path.Combine(destination, entry.FullName));
-                        }
+                        archive.ExtractToDirectory(destination);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Failed to extract " + filePath + " to " + destination + ". " + ex.Message); 
+                    Console.WriteLine("Failed to extract " + filePath + " to " + destination + ". " + ex.Message);
                 }
 
             }
